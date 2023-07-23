@@ -42,28 +42,30 @@ esporte = ("Pádel", "Beach")
 final = "\n\nConsulte disponibilidade para os demais horários."
 
 abertura_mensagem = obter_abertura_mensagem()
-lista_horarios1 = obter_lista_horarios(esporte[0])
-lista_horarios2 = obter_lista_horarios(esporte[1])
+
+lista_horarios = (obter_lista_horarios(esporte[0]), obter_lista_horarios(esporte[1]))
+
 
 # Fazendo a mensagem com promoção ou sem
-if "22" in lista_horarios1:
-    promoPadel = " (promocional, joga até 23h30)"
-    mensagem1 = f"{abertura_mensagem}{lista_horarios1}{promoPadel}{final}\n\n"
-else:
-    mensagem1 = f"{abertura_mensagem}{lista_horarios1}{final}\n\n"
 
-if "21" in lista_horarios2:
-    promoBeach = " (promocional, joga até 23h)"
-    mensagem2 = f"{abertura_mensagem}{lista_horarios2}{promoBeach}{final}"
-else:
-    mensagem2 = f"{abertura_mensagem}{lista_horarios2}{final}"
+promo = (" (promocional, joga até 23h30)", " (promocional, joga até 23h)")
 
-# Criar arquivo de saída para esporte1
+if "22" in lista_horarios[0]:
+    mensagem1 = f"{abertura_mensagem}{lista_horarios[0]}{promo[0]}{final}\n\n"
+else:
+    mensagem1 = f"{abertura_mensagem}{lista_horarios[0]}{final}\n\n"
+
+if "21" in lista_horarios[1]:
+    mensagem2 = f"{abertura_mensagem}{lista_horarios[1]}{promo[1]}{final}"
+else:
+    mensagem2 = f"{abertura_mensagem}{lista_horarios[1]}{final}"
+
+# Criar arquivo de saída para os horários de pádel
 nome_arquivo1 = f"horarios_{esporte[0].lower()}.txt"
 with open(nome_arquivo1, 'w') as arquivo1:
     arquivo1.write(mensagem1)
 
-# Criar arquivo de saída para esporte2
+# Criar arquivo de saída para os horários de beach
 nome_arquivo2 = f"horarios_{esporte[1].lower()}.txt"
 with open(nome_arquivo2, 'w') as arquivo2:
     arquivo2.write(mensagem2)
