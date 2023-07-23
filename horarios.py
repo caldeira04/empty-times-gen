@@ -38,13 +38,12 @@ def obter_lista_horarios(esporte):
 locale.setlocale(locale.LC_TIME, 'pt_BR.utf8')
 
 # Exemplo de uso:
-esporte1 = "Pádel"
-esporte2 = "Beach"
+esporte = ("Pádel", "Beach")
 final = "\n\nConsulte disponibilidade para os demais horários."
 
 abertura_mensagem = obter_abertura_mensagem()
-lista_horarios1 = obter_lista_horarios(esporte1)
-lista_horarios2 = obter_lista_horarios(esporte2)
+lista_horarios1 = obter_lista_horarios(esporte[0])
+lista_horarios2 = obter_lista_horarios(esporte[1])
 
 # Fazendo a mensagem com promoção ou sem
 if "22" in lista_horarios1:
@@ -60,12 +59,12 @@ else:
     mensagem2 = f"{abertura_mensagem}{lista_horarios2}{final}"
 
 # Criar arquivo de saída para esporte1
-nome_arquivo1 = f"horarios_{esporte1.lower()}.txt"
+nome_arquivo1 = f"horarios_{esporte[0].lower()}.txt"
 with open(nome_arquivo1, 'w') as arquivo1:
     arquivo1.write(mensagem1)
 
 # Criar arquivo de saída para esporte2
-nome_arquivo2 = f"horarios_{esporte2.lower()}.txt"
+nome_arquivo2 = f"horarios_{esporte[1].lower()}.txt"
 with open(nome_arquivo2, 'w') as arquivo2:
     arquivo2.write(mensagem2)
 
