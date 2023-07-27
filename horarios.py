@@ -19,11 +19,14 @@ def obter_lista_horarios(esporte):
     horarios = []
     while True:
         horario = input(f"Insira um horário disponível para {esporte} (ou 'fim' para encerrar): ")
+
         if horario.lower() == 'fim':
             break
         try:
             hora = int(horario)
             horarios.append(hora)
+            if int(horario) > 22:
+                raise ValueError
         except ValueError:
             print("Horário inválido. Insira um número inteiro.")
 
