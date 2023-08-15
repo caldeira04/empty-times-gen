@@ -19,7 +19,6 @@ def obter_lista_horarios(esporte):
     horarios = []
     while True:
         horario = input(f"Insira um horário disponível para {esporte} (ou 'fim' para encerrar): ")
-
         if horario.lower() == 'fim':
             break
         try:
@@ -56,16 +55,15 @@ promo = (" (promocional, joga até 23h30)", " (promocional, joga até 23h)")
 
 for i in lista_horarios[0]:
 
+    if "22" in lista_horarios[0]:
+        mensagem1 = f"{abertura_mensagem}{lista_horarios[0]}{promo[0]}{final}\n\n"
+    else:
+        mensagem1 = f"{abertura_mensagem}{lista_horarios[0]}{final}\n\n"
 
-if "22" in lista_horarios[0]:
-    mensagem1 = f"{abertura_mensagem}{lista_horarios[0]}{promo[0]}{final}\n\n"
-else:
-    mensagem1 = f"{abertura_mensagem}{lista_horarios[0]}{final}\n\n"
-
-if "21" in lista_horarios[1]:
-    mensagem2 = f"{abertura_mensagem}{lista_horarios[1]}{promo[1]}{final}"
-else:
-    mensagem2 = f"{abertura_mensagem}{lista_horarios[1]}{final}"
+    if "21" in lista_horarios[1]:
+        mensagem2 = f"{abertura_mensagem}{lista_horarios[1]}{promo[1]}{final}"
+    else:
+        mensagem2 = f"{abertura_mensagem}{lista_horarios[1]}{final}"
 
 # Criar arquivo de saída para os horários de pádel
 nome_arquivo1 = f"horarios_{esporte[0].lower()}.txt"
