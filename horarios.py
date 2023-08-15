@@ -24,9 +24,10 @@ def obter_lista_horarios(esporte):
             break
         try:
             hora = int(horario)
-            horarios.append(hora)
             if int(horario) > 22:
                 raise ValueError
+            else:
+                horarios.append(hora)
         except ValueError:
             print("Horário inválido. Insira um número inteiro.")
 
@@ -52,6 +53,9 @@ lista_horarios = (obter_lista_horarios(esporte[0]), obter_lista_horarios(esporte
 # Fazendo a mensagem com promoção ou sem
 
 promo = (" (promocional, joga até 23h30)", " (promocional, joga até 23h)")
+
+for i in lista_horarios[0]:
+
 
 if "22" in lista_horarios[0]:
     mensagem1 = f"{abertura_mensagem}{lista_horarios[0]}{promo[0]}{final}\n\n"
