@@ -3,17 +3,55 @@
 import datetime
 import locale
 
-def obter_abertura_mensagem():
+def obter_lista_mensagem():
+    # Obtendo as mensagens dentro do arquivo de mensagens
+    try:
+        with open("mensagens.txt", "r", encoding="utf-8") as lista_mensagem:
+            mensagens = lista_mensagem.readlines()
+    except FileNotFoundError:
+        print("Arquivo de mensagens não encontrado.")
+        return []
+
+    # Mostrando as opções de mensagem para o usuário
+    while True:
+        print("Selecione uma mensagem para utilizar agora:")
+        for i, mensagem in enumerate(mensagens):
+            print(f"{i+1}: {mensagem.strip()}")
+
+        print("0: Escrever uma nova mensagem")
+        
+        try:
+            n = int(input("Digite o número da mensagem: "))
+            if 0 < n <= len(mensagens):
+                print(mensagens[n - 1].strip())  # Remova o '\n' aqui
+                break
+
+            elif n == 0:
+                mensagem_nova = input("Escreva sua nova mensagem: ")
+                mensagens.append(mensagem_nova + "\n")
+                with open("mensagens.txt", "a", encoding="utf-8") as f:
+                    f.write(mensagem_nova + "\n")  # Adicione o '\n' aqui
+
+            else:
+                print("Opção inválida. Tente novamente.")
+        except ValueError:
+            print("Entrada inválida. Digite um número.")
+        except KeyboardInterrupt:
+            print("\nEncerrando...")
+
+motd = obter_lista_mensagem()
+
+def obter_abertura_mensagem(motd):
     now = datetime.datetime.now()
     current_hour = now.hour
 
     if current_hour < 12:
-        return f"Bom dia pessoal!\n\nVeja os horários e marque sua quadra pelo Site/APP - https://gripo.app/reservar/padelsul-pelotas-rs\n\nHorários nobres vagos para HOJE - ({now.strftime('%d/%m')}, {now.strftime('*%A-feira*')}):"
+        return f"Bom dia pessoal!\n\n{motd}\n\nHorários nobres vagos para HOJE - ({now.strftime('%d/%m')}, {now.strftime('*%A-feira*')}):"
     elif current_hour < 18:
-        return f"Boa tarde pessoal!\n\nVeja os horários e marque sua quadra pelo Site/APP - https://gripo.app/reservar/padelsul-pelotas-rs\n\nÚltimos horários nobres vagos para HOJE - ({now.strftime('%d/%m')}, {now.strftime('*%A-feira*')}):"
+        return f"Boa tarde pessoal!\n\n{motd}\n\nÚltimos horários nobres vagos para HOJE - ({now.strftime('%d/%m')}, {now.strftime('*%A-feira*')}):"
     else:
         tomorrow = now + datetime.timedelta(days=1)
-        return f"Boa noite pessoal!\n\nNada melhor que jogar mais pagando menos! Conheça nossos planos de sócio e garanta desconto em todos os horários no clube!\n\nHorários nobres vagos para AMANHÃ ({tomorrow.strftime('%d/%m')}, {tomorrow.strftime('*%A-feira*')}):"
+        return f"Boa noite pessoal!\n\n{motd}\n\nHorários nobres vagos para AMANHÃ ({tomorrow.strftime('%d/%m')}, {tomorrow.strftime('*%A-feira*')}):"
 
 def obter_lista_horarios(esporte):
     horarios = []
@@ -44,7 +82,7 @@ locale.setlocale(locale.LC_TIME, 'pt_BR.utf8')
 esporte = ("Pádel", "Beach")
 final = "\n\nConsulte disponibilidade para os demais horários."
 
-abertura_mensagem = obter_abertura_mensagem()
+abertura_mensagem = obter_abertura_mensagem(motd)
 
 lista_horarios = (obter_lista_horarios(esporte[0]), obter_lista_horarios(esporte[1]))
 
