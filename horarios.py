@@ -9,36 +9,36 @@ def abrir_mensagens():
         with open("mensagens.txt", "r", encoding="utf-8") as lista_mensagem:
             mensagens = lista_mensagem.readlines()
     except FileNotFoundError:
+        # Caso o arquivo não exista ele é criado
         with open("mensagens.txt", "w") as lista_mensagem:
             return
-    # Mostrando as opções de mensagem para o usuário
+
+    # Mostrando todas opções de mensagem
     while True:
         print("Selecione uma mensagem para utilizar agora:")
         for i, mensagem in enumerate(mensagens):
             print(f"{i+1}: {mensagem.strip()}")
-
         print("0: Escrever uma nova mensagem")
-        
         try:
+        # Aqui definirá que para adicionar uma mensagem nova se usa 0, para utilizar já existentes, os números atribuídos
             n = int(input("Digite o número da mensagem: "))
             if 0 < n <= len(mensagens):
-                mensagem_obtida = mensagens[n - 1].strip()
-                print(mensagem_obtida)  # Remova o '\n' aqui
+                mensagem_obtida = mensagens[n - 1].strip() # n - 1 acertam o número da mensagem, strip remove os colchetes
+                print(mensagem_obtida)
                 break
 
             elif n == 0:
                 mensagem_nova = input("Escreva sua nova mensagem: ")
                 mensagens.append(mensagem_nova + "\n")
                 with open("mensagens.txt", "a", encoding="utf-8") as f:
-                    f.write(mensagem_nova + "\n")  # Adicione o '\n' aqui
+                    f.write(mensagem_nova + "\n") # \n serve para quebrar a linha para que as mensagens não entrem todas na mesma
             else:
                 print("Opção inválida. Tente novamente.")
         except ValueError:
             print("Entrada inválida. Digite um número.")
-        except KeyboardInterrupt:
-            print("\nEncerrando...")
     return mensagem_obtida
 
+# Variável curta para minimizar o trabalho
 motd = abrir_mensagens()
 
 def obter_abertura_mensagem():
