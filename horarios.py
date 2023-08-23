@@ -3,15 +3,14 @@
 import datetime
 import locale
 
-def obter_lista_mensagem():
+def abrir_mensagens():
     # Obtendo as mensagens dentro do arquivo de mensagens
     try:
         with open("mensagens.txt", "r", encoding="utf-8") as lista_mensagem:
             mensagens = lista_mensagem.readlines()
     except FileNotFoundError:
-        print("Arquivo de mensagens não encontrado.")
-        return []
-
+        with open("mensagens.txt", "w") as lista_mensagem:
+            return
     # Mostrando as opções de mensagem para o usuário
     while True:
         print("Selecione uma mensagem para utilizar agora:")
@@ -23,7 +22,8 @@ def obter_lista_mensagem():
         try:
             n = int(input("Digite o número da mensagem: "))
             if 0 < n <= len(mensagens):
-                print(mensagens[n - 1].strip())  # Remova o '\n' aqui
+                mensagem_obtida = mensagens[n - 1].strip()
+                print(mensagem_obtida)  # Remova o '\n' aqui
                 break
 
             elif n == 0:
@@ -31,17 +31,17 @@ def obter_lista_mensagem():
                 mensagens.append(mensagem_nova + "\n")
                 with open("mensagens.txt", "a", encoding="utf-8") as f:
                     f.write(mensagem_nova + "\n")  # Adicione o '\n' aqui
-
             else:
                 print("Opção inválida. Tente novamente.")
         except ValueError:
             print("Entrada inválida. Digite um número.")
         except KeyboardInterrupt:
             print("\nEncerrando...")
+    return mensagem_obtida
 
-motd = obter_lista_mensagem()
+motd = abrir_mensagens()
 
-def obter_abertura_mensagem(motd):
+def obter_abertura_mensagem():
     now = datetime.datetime.now()
     current_hour = now.hour
 
@@ -81,9 +81,7 @@ locale.setlocale(locale.LC_TIME, 'pt_BR.utf8')
 # Exemplo de uso:
 esporte = ("Pádel", "Beach")
 final = "\n\nConsulte disponibilidade para os demais horários."
-
-abertura_mensagem = obter_abertura_mensagem(motd)
-
+abertura_mensagem = obter_abertura_mensagem()
 lista_horarios = (obter_lista_horarios(esporte[0]), obter_lista_horarios(esporte[1]))
 
 
