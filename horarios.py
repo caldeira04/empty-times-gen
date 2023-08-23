@@ -11,7 +11,7 @@ def abrir_mensagens():
     except FileNotFoundError:
         # Caso o arquivo não exista ele é criado
         with open("mensagens.txt", "w") as lista_mensagem:
-            return
+            mensagens = []
 
     # Mostrando todas opções de mensagem
     while True:
