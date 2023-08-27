@@ -1,3 +1,6 @@
-# Ignorando todos arquivos usados no clube
+# Ignoring the files used at my club
 *.txt
 *.jpeg
+
+# Ignoring pycache files
+*.pyc
