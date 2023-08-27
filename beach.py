@@ -1,4 +1,4 @@
-import main
+
 
 sport = "beach"
 
@@ -40,6 +40,8 @@ def generateMessage():
             print("Entrada inválida. Digite um número.") # Invalid input, type a number
     return obtainedMessage
 
+actualMessage = generateMessage()
+
 #Function for obtaining the times that are available
     
 def obtainAvailableTimes():
@@ -48,11 +50,11 @@ def obtainAvailableTimes():
     while True:
         times = input(f"Insira um horário disponível para {sport} ou digite 'fim' para encerrar:") #Insert a available time or type "finish" to end the loop
 
-        if times == "fim":
+        if times.lower() == "fim":
             break
         try:
             time = int(times)
-            if time > 21:
+            if int(times) > 21:
                 raise ValueError #Since 21 is the last available time, I'll end the code here
 
             else:
@@ -60,11 +62,22 @@ def obtainAvailableTimes():
         except ValueError:
             print("Horário inválido, tente novamente") # Invalid time, try again
 
-        if times:
-            availableTimes.sort()
-            sortedTimes = [f"{time:02d}h" for time in times]
-            timeList = ", ".join(sortedTimes)
-            return f"{sport}: *{sortedTimes}*" #This will return the sorted available times
-        
-        else:
-            return f"Não há quadras disponíveis para {sport}"
+    if availableTimes:
+        availableTimes.sort()
+        sortedTimes = [f"{time:02d}h" for time in availableTimes]
+        timeList = ", ".join(sortedTimes)
+        return f"{sport}: *{sortedTimes}*" #This will return the sorted available times
+    
+    else:
+        return f"Não há quadras disponíveis para {sport}"
+
+times = obtainAvailableTimes()
+
+# Function to analyze if the promo is valid on the day
+def hasPromo():
+    for i in times:
+
+        if "21" in times:
+            return " (promocional, joga até 23h)"
+
+promo = hasPromo()
