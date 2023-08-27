@@ -1,4 +1,3 @@
-import main
 
 sport = "pádel"
 
@@ -64,9 +63,8 @@ def obtainAvailableTimes():
         
     if availableTimes:
         availableTimes.sort()
-        sortedTimes = [f"{time:02d}h" for time in availableTimes]
-        timeList = ", ".join(sortedTimes)
-        return f"{sport}: *{sortedTimes}*" #This will return the sorted available times
+        sortedTimes = ", ".join([f"{time:02d}h" for time in availableTimes])
+        return f"{sport.capitalize()}: *{sortedTimes}*" #This will return the sorted available times
     
     else:
         return f"Não há quadras disponíveis para {sport}"
@@ -79,6 +77,7 @@ def hasPromo():
 
         if "22" in times:
             return " (promocional, joga até 23h30)"
+        else:
+            return
 
 promo = hasPromo()
-

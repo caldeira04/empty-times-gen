@@ -28,25 +28,37 @@ def middleMessage():
     currentHour = now.hour
 
     if currentHour < 12:
-        return f"Horários nobres vagos para HOJE - ({now.strftime('%d/%m')}, {now.strftime('*%A*')}):\n\n"
+        return f"Horários nobres vagos para HOJE - ({now.strftime('%d/%m')}, {now.strftime('*%A*')}):\n\n" #Best vacant times for today
 
     elif currentHour < 18:
-        return f"Últimos horários nobres vagos para HOJE - ({now.strftime('%d/%m')}, {now.strftime('*%A*')}):\n\n"
+        return f"Últimos horários nobres vagos para HOJE - ({now.strftime('%d/%m')}, {now.strftime('*%A*')}):\n\n" #Last vacant times for today
 
     else:
         tomorrow = now + datetime.timedelta(days=1)
-        return f"Horários nobres vagos para AMANHÃ ({tomorrow.strftime('%d/%m')}, {tomorrow.strftime('*%A*')})\n\n:"
+        return f"Horários nobres vagos para AMANHÃ ({tomorrow.strftime('%d/%m')}, {tomorrow.strftime('*%A*')})\n\n:" #Best vacant times for tomorrow
 
-final = "\n\nConsulte disponibilidade para os demais horários"
+#Creating every message as vars
 greetings = initMessage()
 middle = middleMessage()
-sportsMessages = (padel.actualMessage, beach.actualMessage) 
-sportsList = (padel.times, beach.times)
-sportsPromo = (padel.promo, beach.promo)
+sportsMessages = [padel.actualMessage, beach.actualMessage] 
+sportsList = [padel.times, beach.times]
+sportsPromo = [padel.promo, beach.promo]
+final = "\n\nConsulte disponibilidade para os demais horários"
 
-print(greetings)
-print(sportsMessages)
-print(middle)
-print(sportsList)
-print(sportsPromo)
-print(final)
+padelMessage = f"{greetings}{sportsMessages[0]}\n\n{middle}{sportsList[0]}{sportsPromo[0]}{final}"
+
+beachMessage = f"{greetings}{sportsMessages[1]}\n\n{middle}{sportsList[1]}{sportsPromo[1]}{final}"
+
+#Creating output files
+
+#Padel
+padelFile = f"output_{padel.sport}.txt"
+with open(padelFile, 'w', encoding='utf8') as filePadel:
+    filePadel.write(padelMessage)
+
+#Beach
+beachFile = f"output_{beach.sport}.txt"
+with open(beachFile, 'w', encoding='utf8') as fileBeach:
+    fileBeach.write(beachMessage)
+
+print("Arquivos foram criados com os horários.")
