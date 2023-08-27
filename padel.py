@@ -9,7 +9,6 @@ def generateMessage():
     try:
         with open(f"{sport}_messages.txt", "r", encoding="utf-8") as messagelist:
             messages = messagelist.readlines()
-
     # If the file isn't found, the program creates it
     except FileNotFoundError:
         with open(f"{sport}_messages.txt", "w", encoding="utf-8") as messagelist:
@@ -23,8 +22,8 @@ def generateMessage():
         print("0. Escrever uma nova mensagem") #Create a new message
         try:
             n = int(input("Digite o número da mensagem correspondente: ")) #Type the message's number
-            if 0 < n < len(messages):
-                obtainedMessage = message[n - 1].strip() # Will send the message without the sq brackets and numbers
+            if 0 < n <= len(messages):
+                obtainedMessage = messages[n - 1].strip() # Will send the message without the sq brackets and numbers
                 print(obtainedMessage)
                 break
 
@@ -60,9 +59,9 @@ def obtainAvailableTimes():
                 availableTimes.append(time)
         except ValueError:
             print("Horário inválido, tente novamente") # Invalid time, try again
-
+        
         if times:
-            times.sort()
+            availableTimes.sort()
             sortedTimes = [f"{time:02d}h" for time in times]
             timeList = ", ".join(sortedTimes)
             return f"{sport}: *{sortedTimes}*" #This will return the sorted available times
