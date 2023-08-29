@@ -63,7 +63,15 @@ def obtainAvailableTimes():
 
     if availableTimes:
         availableTimes.sort()
-        sortedTimes = ", ".join([f"{time:02d}h" for time in availableTimes])
+
+        formattedTimes = []
+        for time in availableTimes:
+            formattedTime = f"{time:02d}h"
+            if time in [18,21]:  # Adicionar "h30" apenas para horas pares
+                formattedTime += "30"
+            formattedTimes.append(formattedTime)
+        sortedTimes = ", ".join(formattedTimes)
+
         return f"{sport.capitalize()}: *{sortedTimes}*" #This will return the sorted available times
     
     else:
@@ -75,8 +83,8 @@ times = obtainAvailableTimes()
 def hasPromo():
     for i in times:
 
-        if "21" in times:
-            return " (promocional, joga até 23h)"
+        if "21h30" in times:
+            return " (promocional, paga apenas R$ 60)"
         else:
             return
 
