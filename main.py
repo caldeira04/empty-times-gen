@@ -35,7 +35,7 @@ def middleMessage():
 
     else:
         tomorrow = now + datetime.timedelta(days=1)
-        return f"Horários nobres vagos para AMANHÃ ({tomorrow.strftime('%d/%m')}, {tomorrow.strftime('*%A*')})\n\n:" #Best vacant times for tomorrow
+        return f"Horários nobres vagos para AMANHÃ ({tomorrow.strftime('%d/%m')}, {tomorrow.strftime('*%A*')}):\n\n" #Best vacant times for tomorrow
 
 #Creating every message as vars
 greetings = initMessage()
