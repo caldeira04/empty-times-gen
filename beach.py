@@ -1,3 +1,4 @@
+import datetime
 
 sport = "beach"
 
@@ -41,8 +42,18 @@ def generateMessage():
 
 actualMessage = generateMessage()
 
+#Since sunday grid is different than the usual, we'll use a isSunday function, to see what commands to use
+
+def isSunday():
+    now = datetime.datetime.now()
+    if now.strftime('%A') == "sunday".lower():
+        return True
+    else: 
+        return False
+
+
 #Function for obtaining the times that are available
-    
+
 def obtainAvailableTimes():
     availableTimes = []
 
@@ -65,12 +76,22 @@ def obtainAvailableTimes():
         availableTimes.sort()
 
         formattedTimes = []
-        for time in availableTimes:
-            formattedTime = f"{time:02d}h"
-            if time in [18,21]:  # Adicionar "h30" apenas para horas pares
-                formattedTime += "30"
-            formattedTimes.append(formattedTime)
-        sortedTimes = ", ".join(formattedTimes)
+        
+        if isSunday == False:
+            for time in availableTimes:
+                formattedTime = f"{time:02d}h"
+                if time in [10, 15, 18, 21]:  # Add h30 only to wanted hours
+                    formattedTime += "30"
+                formattedTimes.append(formattedTime)
+            sortedTimes = ", ".join(formattedTimes)
+
+        else:
+            for time in availableTimes:
+                formattedTime = f"{time:02d}h"
+                if time in [10, 17]:  # Add h30 only to wanted hours
+                    formattedTime += "30"
+                formattedTimes.append(formattedTime)
+            sortedTimes = ", ".join(formattedTimes)
 
         return f"{sport.capitalize()}: *{sortedTimes}*" #This will return the sorted available times
     
