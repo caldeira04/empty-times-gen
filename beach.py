@@ -29,9 +29,9 @@ def generateMessage():
 
             elif n == 0:
                 newMessage = input("Insira a nova mensagem: ") #Type in the new message
-                messages.append(newMessage + "\n")
+                messages.append("\n" + newMessage)
                 with open(f"{sport}_messages.txt", "w", encoding="utf-8") as f:
-                    f.write(newMessage + "\n") #Breaks the line so the new message dont concatenate at the same line as an older message
+                    f.write("\n" + newMessage) #Breaks the line so the new message dont concatenate at the same line as an older message
 
             else:
                 print("Opção inválida, tente novamente") # No such option, try again
@@ -76,22 +76,12 @@ def obtainAvailableTimes():
         availableTimes.sort()
 
         formattedTimes = []
-        
-        if isSunday == False:
-            for time in availableTimes:
-                formattedTime = f"{time:02d}h"
-                if time in [10, 15, 18, 21]:  # Add h30 only to wanted hours
-                    formattedTime += "30"
-                formattedTimes.append(formattedTime)
-            sortedTimes = ", ".join(formattedTimes)
-
-        else:
-            for time in availableTimes:
-                formattedTime = f"{time:02d}h"
-                if time in [10, 17]:  # Add h30 only to wanted hours
-                    formattedTime += "30"
-                formattedTimes.append(formattedTime)
-            sortedTimes = ", ".join(formattedTimes)
+        for time in availableTimes:
+            formattedTime = f"{time:02d}h"
+            if time in [10, 15, 18, 21]:  # Add h30 only to wanted hours
+                formattedTime += "30"
+            formattedTimes.append(formattedTime)
+        sortedTimes = ", ".join(formattedTimes)
 
         return f"{sport.capitalize()}: *{sortedTimes}*" #This will return the sorted available times
     
@@ -105,8 +95,8 @@ def hasPromo():
     for i in times:
 
         if "21h30" in times:
-            return " (promocional, paga apenas R$ 60)"
+            return " (promocional, joga até 23h30 pagando R$ 90)"
         else:
-            return
+            return ""
 
 promo = hasPromo()

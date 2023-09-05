@@ -28,9 +28,9 @@ def generateMessage():
 
             elif n == 0:
                 newMessage = input("Insira a nova mensagem: ") #Type in the new message
-                messages.append(newMessage + "\n")
+                messages.append("\n" + newMessage)
                 with open(f"{sport}_messages.txt", "w", encoding="utf-8") as f:
-                    f.write(newMessage + "\n") #Breaks the line so the new message dont concatenate at the same line as an older message
+                    f.write("\n" + newMessage) #Breaks the line so the new message dont concatenate at the same line as an older message
 
             else:
                 print("Opção inválida, tente novamente") # No such option, try again
